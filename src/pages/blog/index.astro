@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '../../config/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+---
+
+<BaseLayout
+  title="Blog Sonia11 — Articole Exclusive"
+  description="Articole exclusive Sonia11 — ghiduri despre OnlyFans, conținut premium, comunitate VIP."
+>
+  <header class="header-section">
+    <h1 class="profile-name"><span class="name-gradient">Blog Sonia11</span></h1>
+    <p class="profile-bio">Articole exclusive · Comunitate VIP</p>
+  </header>
+
+  <div class="stacked-grid">
+    {posts.length === 0 ? (
+      <article class="seo-article bento-card">
+        <p class="seo-intro">În curând vom publica articole exclusive aici.</p>
+      </article>
+    ) : (
+      posts.map((post) => (
+        <article class="bento-card blog-card-item">
+          <a href={`/blog/${post.id.replace(/\.md$/, '')}/`} class="blog-card-link">
+            <h2 class="profile-meta-title">{post.data.title}</h2>
+            <p class="blog-card-desc">{post.data.description}</p>
+            <p class="profile-meta-subtitle">
+              {post.data.publishDate.toLocaleDateString('ro-RO', { year: 'numeric', month: 'long', day: 'numeric' })} · Citește →
+            </p>
+          </a>
+        </article>
+      ))
+    )}
+
+    <div class="legal-links-container">
+      <a href="/" class="legal-link">← Înapoi la Acasă</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .blog-card-item { padding: 18px 20px; }
+  .blog-card-link { text-decoration: none; color: inherit; display: block; }
+  .blog-card-desc { font-size: 0.8rem; color: rgba(240, 230, 255, 0.75); line-height: 1.5; margin: 8px 0 10px 0; }
+</style>

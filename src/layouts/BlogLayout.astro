@@ -1,0 +1,148 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { SITE_CONFIG } from '../config/site';
+import { render, type CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, publishDate, author, image, keywords } = entry.data;
+const slug = entry.id.replace(/\.md$/, '');
+const canonical = `${SITE_CONFIG.url}/blog/${slug}/`;
+
+// Render the markdown body
+const { Content } = await render(entry);
+
+// Build FAQPage Schema from the FAQ section in the raw markdown body.
+// Each `### Question?` heading is paired with its following paragraph(s).
+type FaqItem = { question: string; answer: string };
+const faqItems: FaqItem[] = [];
+let currentFaq: { question: string; answerLines: string[] } | null = null;
+for (const line of (entry.body ?? '').split('\n')) {
+  const h3 = line.match(/^###\s+(.+?)\s*$/);
+  const isH2 = /^##\s+/.test(line);
+  if (h3) {
+    if (currentFaq) {
+      faqItems.push({ question: currentFaq.question, answer: currentFaq.answerLines.join(' ').trim() });
+    }
+    currentFaq = h3[1].includes('?') ? { question: h3[1].trim(), answerLines: [] } : null;
+  } else if (isH2) {
+    if (currentFaq) {
+      faqItems.push({ question: currentFaq.question, answer: currentFaq.answerLines.join(' ').trim() });
+    }
+    currentFaq = null;
+  } else if (currentFaq && line.trim()) {
+    currentFaq.answerLines.push(line.trim());
+  }
+}
+if (currentFaq) {
+  faqItems.push({ question: currentFaq.question, answer: currentFaq.answerLines.join(' ').trim() });
+}
+
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: publishDate.toISOString(),
+  dateModified: publishDate.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: author,
+    url: SITE_CONFIG.url,
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Sonia11',
+    url: SITE_CONFIG.url,
+  },
+  image: image ? `${SITE_CONFIG.url}${image}` : `${SITE_CONFIG.url}${SITE_CONFIG.images.main}`,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  keywords: keywords.join(', '),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Acasă', item: SITE_CONFIG.url },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_CONFIG.url}/blog/` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+
+const faqSchema = faqItems.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    }
+  : null;
+---
+
+<BaseLayout title={`${title} | Sonia11`} description={description} canonical={canonical}>
+  <slot name="head" slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} is:inline />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+    {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />}
+  </slot>
+
+  <article class="seo-article bento-card blog-post">
+    <header class="blog-header">
+      <p class="blog-breadcrumb">
+        <a href="/" class="seo-link-highlight">Acasă</a>
+        / <a href="/blog/" class="seo-link-highlight">Blog</a>
+      </p>
+      <h1 class="profile-name blog-title">
+        <span class="name-gradient">{title}</span>
+      </h1>
+      <p class="blog-meta">
+        De <strong>{author}</strong> · {publishDate.toLocaleDateString('ro-RO', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
+    </header>
+
+    <div class="blog-content">
+      <Content />
+    </div>
+
+    <footer class="blog-footer">
+      <div class="legal-links-container">
+        <a href="/politica-cookies/" class="legal-link">Politica de Cookies</a>
+        <span class="legal-separator">|</span>
+        <a href="/politica-de-confidentialitate/" class="legal-link">Politica de Confidențialitate</a>
+      </div>
+      <a href="/" class="premium-cta">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Înapoi la Acasă
+      </a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  .blog-post { margin-top: 20px; padding: 28px; }
+  .blog-header { margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--color-glass-border); }
+  .blog-breadcrumb { font-size: 0.75rem; color: var(--color-text-muted); margin-bottom: 12px; }
+  .blog-title { font-size: 1.4rem; line-height: 1.3; margin-bottom: 10px; }
+  .blog-meta { font-size: 0.75rem; color: var(--color-text-muted); }
+  .blog-content h2 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-top: 24px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--color-glass-border); }
+  .blog-content h3 { font-size: 0.95rem; font-weight: 600; color: #fff; margin-top: 18px; margin-bottom: 8px; }
+  .blog-content p { font-size: 0.85rem; color: rgba(240, 230, 255, 0.85); line-height: 1.7; margin-bottom: 14px; }
+  .blog-content ul, .blog-content ol { font-size: 0.85rem; color: rgba(240, 230, 255, 0.85); line-height: 1.7; padding-left: 24px; margin-bottom: 14px; }
+  .blog-content li { margin-bottom: 6px; }
+  .blog-content strong { color: #fff; }
+  .blog-content a { color: var(--color-pink-light); text-decoration: none; border-bottom: 1px dashed var(--color-pink-light); }
+  .blog-content a:hover { color: var(--color-pink); }
+  .blog-content table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin: 16px 0; }
+  .blog-content thead th { font-weight: 700; color: var(--color-text-muted); border-bottom: 1px solid var(--color-glass-border); padding: 10px; text-align: left; }
+  .blog-content tbody td { color: rgba(240, 230, 255, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px; }
+  .blog-footer { margin-top: 32px; text-align: center; }
+</style>
