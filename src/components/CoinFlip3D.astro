@@ -1,0 +1,19 @@
+---
+import { SITE_CONFIG } from '../config/site';
+---
+
+<section class="bento-card bento-profile" id="profileCard">
+  <a href={SITE_CONFIG.social.onlyfans} target="_blank" rel="noopener" class="flip-container" aria-label="Acces direct OnlyFans">
+    <div class="flipper">
+      <div class="front">
+        <img src={SITE_CONFIG.images.profile} alt="Sonia11 Profile" loading="eager" width="220" height="220" />
+      </div>
+      <div class="back of-back">
+        <i class="fas fa-lock" aria-hidden="true"></i>
+        <span>OnlyFans</span>
+      </div>
+    </div>
+  </a>
+  <h2 class="profile-meta-title">Sonia11 Official Profile</h2>
+  <p class="profile-meta-subtitle">Apasă pe imagine pentru acces VIP</p>
+</section>

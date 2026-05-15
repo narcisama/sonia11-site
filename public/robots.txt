@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# AI Search crawlers - permit indexare
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://sonia11.com/sitemap-index.xml

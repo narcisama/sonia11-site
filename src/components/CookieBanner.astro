@@ -1,0 +1,52 @@
+---
+// Cookie consent banner GDPR - vanilla JS, NU PWA
+---
+
+<div id="cookie-consent-banner" class="glass-cookie-banner" style="display: none;">
+  <div class="cookie-text">
+    Acest site folosește cookie-uri pentru a-ți oferi o experiență premium, sigură și personalizată.
+  </div>
+  <div class="cookie-actions">
+    <button id="accept-cookies" class="cookie-btn accept-btn" type="button">Acceptă</button>
+    <a href="/politica-cookies/" class="cookie-btn settings-btn">Setări</a>
+    <button id="reject-cookies" class="cookie-btn reject-btn" type="button">Respinge</button>
+  </div>
+</div>
+
+<script>
+  function initCookieBanner(): void {
+    const banner = document.getElementById('cookie-consent-banner');
+    const acceptBtn = document.getElementById('accept-cookies');
+    const rejectBtn = document.getElementById('reject-cookies');
+
+    if (!banner) return;
+
+    // Verifică dacă utilizatorul a interacționat deja
+    try {
+      if (!localStorage.getItem('cookieConsent')) {
+        banner.style.display = 'flex';
+      }
+    } catch {
+      // localStorage disabled
+      banner.style.display = 'flex';
+    }
+
+    function hideBanner(decision: string): void {
+      try {
+        localStorage.setItem('cookieConsent', decision);
+      } catch {
+        // localStorage failed - oricum hide banner
+      }
+      if (banner) banner.style.display = 'none';
+    }
+
+    acceptBtn?.addEventListener('click', () => hideBanner('accepted'));
+    rejectBtn?.addEventListener('click', () => hideBanner('rejected'));
+  }
+
+  if (document.readyState !== 'loading') {
+    initCookieBanner();
+  } else {
+    document.addEventListener('DOMContentLoaded', initCookieBanner);
+  }
+</script>
