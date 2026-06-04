@@ -38,7 +38,7 @@ Există un singur cont OnlyFans pe care îl administrez personal. Cel mai sigur 
 
 Prezența mea oficială pe internet este scurtă. Mă găsești în doar două locuri:
 
-- OnlyFans: <a href="https://onlyfans.com/sonia.11" rel="nofollow noopener" target="_blank">onlyfans.com/sonia.11</a> — aici public conținutul dedicat abonaților
+- OnlyFans: <a href="https://onlyfans.com/sonia11g" rel="nofollow noopener" target="_blank">onlyfans.com/sonia11g</a> — aici public conținutul dedicat abonaților
 - TikTok: <a href="https://www.tiktok.com/@sonia11.g" rel="nofollow noopener" target="_blank">tiktok.com/@sonia11.g</a> — aici postez clipurile publice
 
 Orice alt cont — alte profiluri de OnlyFans, Instagram sau Telegram — nu este al meu, indiferent cât de convingător pare.
@@ -69,7 +69,7 @@ Munca mea se sprijină pe încredere. Când cineva îmi fură numele și păcăl
 
 ## Întrebări frecvente
 
-### Este onlyfans.com/sonia.11 singurul cont oficial?
+### Este onlyfans.com/sonia11g singurul cont oficial?
 
 Da. Este singurul cont OnlyFans pe care îl dețin și îl administrez eu. Orice altă adresă, oricât de asemănătoare, nu îmi aparține — verifică numele literă cu literă și pornește mereu de la linkul de pe sonia11.com.
 
@@ -95,4 +95,4 @@ Contactează imediat banca ta și explică situația, fiindcă multe plăți pot
 
 ## Concluzie
 
-Verificarea durează câteva secunde și te scutește de multe neplăceri. Reține numele exact, pornește mereu de la sonia11.com și nu plăti niciodată în afara platformei oficiale. Dacă vrei să fii sigur că ești în locul potrivit, intră direct pe contul meu real, <a href="https://onlyfans.com/sonia.11" rel="nofollow noopener" target="_blank">onlyfans.com/sonia.11</a> — acolo sunt eu, autentic, și acolo te aștept.
+Verificarea durează câteva secunde și te scutește de multe neplăceri. Reține numele exact, pornește mereu de la sonia11.com și nu plăti niciodată în afara platformei oficiale. Dacă vrei să fii sigur că ești în locul potrivit, intră direct pe contul meu real, <a href="https://onlyfans.com/sonia11g" rel="nofollow noopener" target="_blank">onlyfans.com/sonia11g</a> — acolo sunt eu, autentic, și acolo te aștept.

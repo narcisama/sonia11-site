@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
   shortDescription: 'Conținut autentic & exclusiv · Official Links',
 
   social: {
-    onlyfans: 'https://onlyfans.com/sonia.11',
+    onlyfans: 'https://onlyfans.com/sonia11g',
     tiktok: 'https://www.tiktok.com/@sonia11.g?_t=ZN-8wemROLre4M&_r=1',
     // Instagram + Facebook comentate (dezactivate la cerere Narcis)
     // instagram: 'https://www.instagram.com/sonia.g.11?igsh=ZnczeGl6dmVpbndo&utm_source=qr',
